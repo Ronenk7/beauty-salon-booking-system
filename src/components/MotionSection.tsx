@@ -10,10 +10,10 @@ type MotionSectionProps = ComponentPropsWithoutRef<"section"> & {
 export function MotionSection({ children, className = "", delay = 0, ...props }: MotionSectionProps) {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 36 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.75, ease: "easeOut", delay }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.55, ease: "easeOut", delay }}
       className={className}
       {...props}
     >
