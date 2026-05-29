@@ -1,6 +1,12 @@
 import { BookingForm } from "./BookingForm";
 
-export default function BookingPage() {
+type BookingPageProps = {
+  searchParams?: {
+    service?: string;
+  };
+};
+
+export default function BookingPage({ searchParams }: BookingPageProps) {
   return (
     <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
       <div className="mb-10 overflow-hidden rounded-[3rem] bg-white/70 p-8 shadow-soft md:p-12">
@@ -13,7 +19,7 @@ export default function BookingPage() {
         </p>
       </div>
 
-      <BookingForm />
+      <BookingForm initialServiceId={searchParams?.service} />
     </section>
   );
 }
