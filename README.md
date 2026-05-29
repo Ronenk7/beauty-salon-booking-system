@@ -1,0 +1,97 @@
+# Beauty Salon Booking System
+
+A simple version 1 booking system for a professional beauty salon.
+
+## Tech stack
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Supabase
+
+## Version 1 features
+
+- Home page
+- Services page
+- Booking page
+- Simple admin appointments page
+- Clean project structure
+- No payments yet
+
+## Project structure
+
+```txt
+src/
+  app/
+    page.tsx
+    services/page.tsx
+    booking/page.tsx
+    booking/BookingForm.tsx
+    admin/appointments/page.tsx
+    globals.css
+    layout.tsx
+  components/
+    Header.tsx
+    Footer.tsx
+    ServiceCard.tsx
+  data/
+    services.ts
+  lib/
+    supabase/client.ts
+  types/
+    appointment.ts
+supabase/
+  schema.sql
+```
+
+## Run locally
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a local environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+3. Add your Supabase values to `.env.local`:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. Create the Supabase table:
+
+Open your Supabase project, go to the SQL Editor, and run the SQL from:
+
+```txt
+supabase/schema.sql
+```
+
+5. Start the development server:
+
+```bash
+npm run dev
+```
+
+6. Open the app in your browser:
+
+```txt
+http://localhost:3000
+```
+
+## Main pages
+
+- `/` - Home page
+- `/services` - Services list
+- `/booking` - Customer booking form
+- `/admin/appointments` - Simple admin appointments table
+
+## Notes
+
+This is only version 1. The admin page is intentionally simple and does not include login yet. Before using this in production, add authentication, better validation, appointment availability checks, and protected admin access.
