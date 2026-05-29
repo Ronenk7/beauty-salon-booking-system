@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
 import { services } from "@/data/services";
 import type { Appointment } from "@/types/appointment";
 
@@ -7,63 +7,93 @@ function getServiceName(serviceId: string) {
   return service?.name ?? serviceId;
 }
 
-export default async function AdminAppointmentsPage() {
-  const { data, error } = await supabase
-    .from("appointments")
-    .select("*")
-    .order("appointment_date", { ascending: true })
-    .order("appointment_time", { ascending: true });
+function getStatusLabel(status?: string) {
+  if (status === "confirmed") {
+    return "מאושר";
+  }
 
-  const appointments = (data ?? []) as Appointment[];
+  if (status === "cancelled") {
+    return "בוטל";
+  }
+
+  return "ממתין לאישור";
+}
+
+export default async function AdminAppointmentsPage() {
+  let appointments: Appointment[] = [];
+  let hasError = false;
+
+  if (isSupabaseConfigured && supabase) {
+    const { data, error } = await supabase
+      .from("appointments")
+      .select("*")
+      .order("appointment_date", { ascending: true })
+      .order("appointment_time", { ascending: true });
+
+    appointments = (data ?? []) as Appointment[];
+    hasError = Boolean(error);
+  }
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16">
-      <div className="mb-10">
-        <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">Admin</p>
-        <h1 className="mt-3 text-4xl font-bold text-gray-950">Appointments</h1>
-        <p className="mt-5 text-lg leading-8 text-gray-600">
-          Simple version 1 admin page for viewing booking requests.
+    <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+      <div className="mb-10 rounded-[3rem] bg-white/75 p-8 shadow-soft md:p-12">
+        <p className="text-sm font-black text-blush-700">ניהול</p>
+        <h1 className="mt-4 text-5xl font-black text-espresso">תורים שהתקבלו</h1>
+        <p className="mt-5 max-w-3xl text-lg leading-9 text-espresso/65">
+          עמוד ניהול פשוט לגרסה הראשונה של יולי קוסמטיקס. בהמשך ניתן להוסיף התחברות, שינוי סטטוס וניהול זמינות.
         </p>
       </div>
 
-      {error && (
-        <div className="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">
-          Could not load appointments. Please check your Supabase environment variables and table setup.
+      {!isSupabaseConfigured && (
+        <div className="rounded-[2rem] border border-gold-300/50 bg-gold-100/60 p-6 text-sm font-bold leading-8 text-gold-700 shadow-sm">
+          Supabase עדיין לא הוגדר. כדי לראות תורים אמיתיים יש להוסיף את משתני הסביבה בקובץ .env.local ולהריץ את סכמת ה-SQL.
         </div>
       )}
 
-      {!error && appointments.length === 0 && (
-        <div className="rounded-2xl border border-orange-100 bg-white p-6 text-gray-600 shadow-sm">
-          No appointments yet.
+      {hasError && (
+        <div className="rounded-[2rem] border border-red-200 bg-red-50 p-6 text-sm font-bold text-red-700 shadow-sm">
+          לא הצלחנו לטעון את התורים. נא לבדוק את הגדרת Supabase ואת טבלת appointments.
         </div>
       )}
 
-      {!error && appointments.length > 0 && (
-        <div className="overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-orange-50 text-gray-700">
-              <tr>
-                <th className="px-4 py-3 font-semibold">Customer</th>
-                <th className="px-4 py-3 font-semibold">Phone</th>
-                <th className="px-4 py-3 font-semibold">Service</th>
-                <th className="px-4 py-3 font-semibold">Date</th>
-                <th className="px-4 py-3 font-semibold">Time</th>
-                <th className="px-4 py-3 font-semibold">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-orange-100">
-              {appointments.map((appointment) => (
-                <tr key={appointment.id} className="text-gray-700">
-                  <td className="px-4 py-3">{appointment.customer_name}</td>
-                  <td className="px-4 py-3">{appointment.customer_phone}</td>
-                  <td className="px-4 py-3">{getServiceName(appointment.service_id)}</td>
-                  <td className="px-4 py-3">{appointment.appointment_date}</td>
-                  <td className="px-4 py-3">{appointment.appointment_time}</td>
-                  <td className="px-4 py-3 capitalize">{appointment.status ?? "pending"}</td>
+      {isSupabaseConfigured && !hasError && appointments.length === 0 && (
+        <div className="rounded-[2rem] border border-white/80 bg-white/85 p-8 text-espresso/65 shadow-soft">
+          עדיין אין תורים במערכת.
+        </div>
+      )}
+
+      {isSupabaseConfigured && !hasError && appointments.length > 0 && (
+        <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white/85 shadow-soft">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[760px] text-right text-sm">
+              <thead className="bg-blush-100/70 text-espresso">
+                <tr>
+                  <th className="px-5 py-4 font-black">לקוחה</th>
+                  <th className="px-5 py-4 font-black">טלפון</th>
+                  <th className="px-5 py-4 font-black">טיפול</th>
+                  <th className="px-5 py-4 font-black">תאריך</th>
+                  <th className="px-5 py-4 font-black">שעה</th>
+                  <th className="px-5 py-4 font-black">סטטוס</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-beige/60">
+                {appointments.map((appointment) => (
+                  <tr key={appointment.id} className="text-espresso/75 transition hover:bg-cream">
+                    <td className="px-5 py-4 font-bold text-espresso">{appointment.customer_name}</td>
+                    <td className="px-5 py-4">{appointment.customer_phone}</td>
+                    <td className="px-5 py-4">{getServiceName(appointment.service_id)}</td>
+                    <td className="px-5 py-4">{appointment.appointment_date}</td>
+                    <td className="px-5 py-4">{appointment.appointment_time}</td>
+                    <td className="px-5 py-4">
+                      <span className="rounded-full bg-gold-100 px-4 py-2 text-xs font-black text-gold-700">
+                        {getStatusLabel(appointment.status)}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </section>
