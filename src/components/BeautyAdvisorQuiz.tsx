@@ -189,36 +189,37 @@ export function BeautyAdvisorQuiz() {
     <div className="relative overflow-hidden rounded-[3rem] bg-gradient-to-l from-espresso via-blush-700 to-gold-700 p-1 shadow-soft">
       <div className="absolute -left-16 -top-20 h-60 w-60 rounded-full bg-white/20 blur-3xl" />
       <div className="absolute bottom-0 right-10 h-44 w-44 rounded-full bg-gold-100/20 blur-3xl" />
+      <div className="absolute inset-0 bg-espresso/20" />
 
-      <div className="relative rounded-[2.8rem] bg-pearl/92 p-6 backdrop-blur-xl md:p-10">
+      <div className="relative rounded-[2.8rem] border border-white/20 bg-white/10 p-6 text-white shadow-soft backdrop-blur-xl md:p-10">
         <div className="mb-8 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
-            <p className="text-sm font-black text-blush-700">יועצת יופי דיגיטלית</p>
-            <h2 className="mt-3 text-4xl font-black leading-tight text-espresso md:text-5xl">
+            <p className="text-sm font-black text-gold-100 drop-shadow-sm">יועצת יופי דיגיטלית</p>
+            <h2 className="mt-3 text-4xl font-black leading-tight text-white drop-shadow-sm md:text-5xl">
               עני על כמה שאלות וקבלי המלצה חכמה לטיפול שמתאים לך.
             </h2>
           </div>
-          <p className="leading-9 text-espresso/65">
+          <p className="rounded-[2rem] border border-white/15 bg-white/10 p-5 leading-9 text-cream shadow-sm backdrop-blur-md">
             חוויה אינטראקטיבית קצרה שמרגישה כמו ייעוץ אישי. כרגע ההמלצה מבוססת על כללים חכמים בצד הלקוח, ללא API חיצוני.
           </p>
         </div>
 
         {!showResults ? (
           <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-            <div className="rounded-[2rem] bg-white/75 p-6 shadow-sm">
-              <div className="mb-3 flex items-center justify-between text-sm font-black text-espresso/60">
+            <div className="rounded-[2rem] border border-white/20 bg-white/15 p-6 shadow-sm backdrop-blur-md">
+              <div className="mb-3 flex items-center justify-between text-sm font-black text-cream">
                 <span>שאלה {currentStep + 1} מתוך {questions.length}</span>
                 <span>{progress}%</span>
               </div>
-              <div className="h-3 overflow-hidden rounded-full bg-beige/50">
+              <div className="h-3 overflow-hidden rounded-full bg-white/25">
                 <motion.div
-                  className="h-full rounded-full bg-gradient-to-l from-blush-700 to-gold-500"
+                  className="h-full rounded-full bg-gradient-to-l from-gold-100 to-blush-100"
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.45 }}
                 />
               </div>
-              <p className="mt-6 text-sm leading-7 text-espresso/55">
+              <p className="mt-6 text-sm leading-7 text-white/85">
                 כל תשובה עוזרת לדייק את ההמלצה לפי מטרה, זמן וסגנון אישי.
               </p>
             </div>
@@ -230,7 +231,7 @@ export function BeautyAdvisorQuiz() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 28 }}
                 transition={{ duration: 0.35 }}
-                className="rounded-[2rem] bg-white/80 p-6 shadow-soft"
+                className="rounded-[2rem] bg-pearl p-6 text-espresso shadow-soft"
               >
                 <h3 className="text-3xl font-black text-espresso">{currentQuestion.title}</h3>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -241,7 +242,7 @@ export function BeautyAdvisorQuiz() {
                       whileHover={{ y: -4, scale: 1.01 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => selectAnswer(option.value)}
-                      className="rounded-[1.5rem] border border-beige/60 bg-pearl px-5 py-5 text-right text-lg font-black text-espresso transition hover:border-blush-300 hover:bg-blush-50"
+                      className="rounded-[1.5rem] border border-beige/70 bg-white px-5 py-5 text-right text-lg font-black text-espresso shadow-sm transition hover:border-blush-300 hover:bg-blush-50"
                     >
                       {option.label}
                     </motion.button>
@@ -254,10 +255,10 @@ export function BeautyAdvisorQuiz() {
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
             <div className="mb-7 flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <div>
-                <p className="text-sm font-black text-blush-700">התאמה אישית עבורך</p>
-                <h3 className="mt-2 text-4xl font-black text-espresso">הטיפולים שהכי מתאימים לך</h3>
+                <p className="text-sm font-black text-gold-100 drop-shadow-sm">התאמה אישית עבורך</p>
+                <h3 className="mt-2 text-4xl font-black text-white drop-shadow-sm">הטיפולים שהכי מתאימים לך</h3>
               </div>
-              <button type="button" onClick={resetQuiz} className="rounded-full border border-beige bg-white/80 px-6 py-3 font-black text-espresso transition hover:-translate-y-1">
+              <button type="button" onClick={resetQuiz} className="rounded-full border border-white/30 bg-white/15 px-6 py-3 font-black text-white shadow-sm backdrop-blur transition hover:-translate-y-1 hover:bg-white/25">
                 התחילי מחדש
               </button>
             </div>
@@ -269,13 +270,13 @@ export function BeautyAdvisorQuiz() {
                   initial={{ opacity: 0, y: 28 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.12 }}
-                  className="rounded-[2rem] bg-white/85 p-6 shadow-soft"
+                  className="rounded-[2rem] bg-pearl p-6 text-espresso shadow-soft"
                 >
                   <div className="mb-4 inline-flex rounded-full bg-gold-100 px-4 py-2 text-xs font-black text-gold-700">
                     המלצה {index + 1}
                   </div>
                   <h4 className="text-2xl font-black text-espresso">{service.name}</h4>
-                  <p className="mt-3 min-h-24 leading-7 text-espresso/65">{getRecommendationReason(service, answers)}</p>
+                  <p className="mt-3 min-h-24 leading-7 text-espresso/70">{getRecommendationReason(service, answers)}</p>
                   <div className="mt-5 grid grid-cols-2 gap-3 text-sm font-black text-espresso">
                     <div className="rounded-2xl bg-cream p-3">{service.durationMinutes} דקות</div>
                     <div className="rounded-2xl bg-cream p-3">החל מ־₪{service.price}</div>
