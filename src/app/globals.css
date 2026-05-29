@@ -74,6 +74,15 @@ textarea {
   }
 }
 
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 18px 45px rgba(217, 137, 153, 0.18);
+  }
+  50% {
+    box-shadow: 0 24px 70px rgba(217, 137, 153, 0.34);
+  }
+}
+
 .reveal {
   animation: fade-up 0.8s ease both;
 }
@@ -87,9 +96,22 @@ textarea {
   animation: shimmer 5s linear infinite;
 }
 
+.pulse-glow {
+  animation: pulse-glow 3.8s ease-in-out infinite;
+}
+
 .glass-card {
   border: 1px solid rgba(255, 255, 255, 0.72);
   background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 20px 60px rgba(92, 64, 51, 0.1);
   backdrop-filter: blur(18px);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
