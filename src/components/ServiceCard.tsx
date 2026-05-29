@@ -1,10 +1,20 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { Service } from "@/data/services";
 
 export function ServiceCard({ service }: { service: Service }) {
   return (
-    <article className="group overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 shadow-soft backdrop-blur transition duration-300 hover:-translate-y-2 hover:shadow-glow">
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.22 }}
+      transition={{ duration: 0.55 }}
+      whileHover={{ y: -10, scale: 1.01 }}
+      className="group overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 shadow-soft backdrop-blur"
+    >
       <div className="relative h-56 overflow-hidden">
         <Image
           src={service.imageUrl}
@@ -33,13 +43,15 @@ export function ServiceCard({ service }: { service: Service }) {
           <span className="rounded-full bg-gold-100 px-4 py-2 text-gold-700">₪{service.price}</span>
         </div>
 
-        <Link
-          href={`/booking?service=${service.id}`}
-          className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-espresso px-5 py-3 text-sm font-black text-white transition hover:-translate-y-1 hover:bg-blush-700"
-        >
-          קבעי תור לטיפול
-        </Link>
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          <Link
+            href={`/booking?service=${service.id}`}
+            className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-espresso px-5 py-3 text-sm font-black text-white transition hover:bg-blush-700"
+          >
+            קבעי תור לטיפול
+          </Link>
+        </motion.div>
       </div>
-    </article>
+    </motion.article>
   );
 }
