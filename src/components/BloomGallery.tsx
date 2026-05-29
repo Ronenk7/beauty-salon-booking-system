@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type PointerEvent } from "react";
 
 type BloomCategory = "all" | "facial" | "brows" | "makeup" | "nails" | "beauty";
 
@@ -118,7 +118,7 @@ export function BloomGallery() {
 
   const selectedItem = selectedIndex === null ? null : filteredItems[selectedIndex];
 
-  function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
