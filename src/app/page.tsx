@@ -3,9 +3,9 @@ import Link from "next/link";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { BeautyAdvisorQuiz } from "@/components/BeautyAdvisorQuiz";
 import { BeforeAfterShowcase } from "@/components/BeforeAfterShowcase";
+import { BloomGallery } from "@/components/BloomGallery";
 import { ClientJourney } from "@/components/ClientJourney";
 import { FaqAccordion } from "@/components/FaqAccordion";
-import { ImageGallery } from "@/components/ImageGallery";
 import { MotionSection } from "@/components/MotionSection";
 import { ReturnReasons } from "@/components/ReturnReasons";
 import { ServiceCard } from "@/components/ServiceCard";
@@ -144,6 +144,8 @@ export default function HomePage() {
         </div>
       </MotionSection>
 
+      <BloomGallery />
+
       <MotionSection className="bg-white/55 py-20">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="mb-10 text-center">
@@ -151,21 +153,6 @@ export default function HomePage() {
             <h2 className="mt-3 text-4xl font-black text-espresso md:text-5xl">שינוי שמרגיש טבעי, נקי ומדויק</h2>
           </div>
           <BeforeAfterShowcase />
-        </div>
-      </MotionSection>
-
-      <MotionSection id="gallery" className="py-20">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="mb-10 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <div>
-              <p className="text-sm font-black text-blush-700">גלריית השראה</p>
-              <h2 className="mt-3 text-4xl font-black text-espresso md:text-5xl">תמונות שמספרות חוויה</h2>
-            </div>
-            <p className="leading-9 text-espresso/65">
-              גלריה אינטראקטיבית עם Lightbox, זום עדין, שכבות צבע וטקסט שמרגישים כמו אתר מותג יופי מודרני.
-            </p>
-          </div>
-          <ImageGallery />
         </div>
       </MotionSection>
 
