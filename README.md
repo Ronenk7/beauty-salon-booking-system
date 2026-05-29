@@ -9,16 +9,23 @@
 - Tailwind CSS
 - Supabase
 
-## Version 1 features
+## Current features
 
 - אתר מלא בעברית
 - RTL מלא
-- דף בית יוקרתי ומודרני
-- דף טיפולים
-- דף קביעת תור
-- עמוד ניהול תורים בסיסי
-- עיצוב רספונסיבי למובייל ולדסקטופ
-- ללא תשלומים בשלב זה
+- דף בית מודרני ויוקרתי בסגנון מותג ביוטי
+- Hero גדול עם תמונות, גרדיאנטים ואפקטים עדינים
+- ניווט דביק עם תפריט מובייל
+- כפתור וואטסאפ צף
+- גלריית תמונות אינטראקטיבית עם Lightbox
+- קרוסלת המלצות
+- FAQ Accordion
+- דף טיפולים עם סינון לפי קטגוריות
+- כרטיסי שירותים עם תמונות, מחיר, משך ותיאור
+- תהליך קביעת תור בשלבים
+- מצב הצלחה לאחר שליחת בקשה
+- עמוד ניהול תורים בסיסי עם כרטיסי סטטיסטיקה
+- ללא תשלומים וללא התחברות בשלב זה
 
 ## Project structure
 
@@ -33,9 +40,14 @@ src/
     globals.css
     layout.tsx
   components/
-    Header.tsx
+    FaqAccordion.tsx
+    FloatingWhatsApp.tsx
     Footer.tsx
+    Header.tsx
+    ImageGallery.tsx
     ServiceCard.tsx
+    ServiceFilter.tsx
+    TestimonialsCarousel.tsx
   data/
     services.ts
   lib/
@@ -96,12 +108,12 @@ http://localhost:3000
 ## Main pages
 
 - `/` - דף הבית
-- `/services` - דף טיפולים
-- `/booking` - דף קביעת תור
+- `/services` - דף טיפולים עם סינון קטגוריות
+- `/booking` - תהליך קביעת תור בשלבים
 - `/admin/appointments` - עמוד ניהול תורים בסיסי
 
 ## Notes
 
-This is version 1. The admin page is intentionally simple and does not include login yet. Before production, add authentication, protected admin access, appointment availability checks, better validation, and real business contact details.
+This is still version 1. The admin page is intentionally simple and does not include login yet. Before production, add authentication, protected admin access, appointment availability checks, better validation, and real business contact details.
 
 The website can run locally even before Supabase is configured, but booking submission and admin data require Supabase environment variables and the `appointments` table.
