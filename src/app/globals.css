@@ -18,6 +18,7 @@ body {
   margin: 0;
   background:
     radial-gradient(circle at top right, rgba(248, 212, 219, 0.45), transparent 32rem),
+    radial-gradient(circle at 10% 20%, rgba(230, 201, 119, 0.18), transparent 28rem),
     linear-gradient(180deg, #fffdf9 0%, #fff9f2 48%, #fff6f7 100%);
   color: #3b2f2f;
 }
@@ -42,4 +43,53 @@ textarea {
 ::selection {
   background: #f8d4db;
   color: #3b2f2f;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-soft {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.reveal {
+  animation: fade-up 0.8s ease both;
+}
+
+.float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+.luxury-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 5s linear infinite;
+}
+
+.glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 20px 60px rgba(92, 64, 51, 0.1);
+  backdrop-filter: blur(18px);
 }
