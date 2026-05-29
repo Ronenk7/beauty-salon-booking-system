@@ -6,13 +6,40 @@
   color-scheme: light;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: #fffaf5;
-  color: #1f2937;
+  margin: 0;
+  background:
+    radial-gradient(circle at top right, rgba(248, 212, 219, 0.45), transparent 32rem),
+    linear-gradient(180deg, #fffdf9 0%, #fff9f2 48%, #fff6f7 100%);
+  color: #3b2f2f;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
 }
 
 input,
 select,
 textarea {
   outline: none;
+}
+
+::selection {
+  background: #f8d4db;
+  color: #3b2f2f;
 }
