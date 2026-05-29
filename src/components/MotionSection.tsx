@@ -1,15 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
-type MotionSectionProps = {
-  children: ReactNode;
-  className?: string;
+type MotionSectionProps = ComponentPropsWithoutRef<"section"> & {
   delay?: number;
 };
 
-export function MotionSection({ children, className = "", delay = 0 }: MotionSectionProps) {
+export function MotionSection({ children, className = "", delay = 0, ...props }: MotionSectionProps) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 36 }}
@@ -17,6 +15,7 @@ export function MotionSection({ children, className = "", delay = 0 }: MotionSec
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: 0.75, ease: "easeOut", delay }}
       className={className}
+      {...props}
     >
       {children}
     </motion.section>
