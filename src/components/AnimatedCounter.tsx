@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { animate, motion, useInView, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 type AnimatedCounterProps = {
@@ -24,7 +24,7 @@ export function AnimatedCounter({ value, suffix = "" }: AnimatedCounterProps) {
       ease: "easeOut",
     });
 
-    return controls.stop;
+    return () => controls.stop();
   }, [count, isInView, value]);
 
   return (
