@@ -8,20 +8,27 @@
 - TypeScript
 - Tailwind CSS
 - Supabase
+- Framer Motion
 
 ## Current features
 
 - אתר מלא בעברית
 - RTL מלא
-- דף בית מודרני ויוקרתי בסגנון מותג ביוטי
-- Hero גדול עם תמונות, גרדיאנטים ואפקטים עדינים
+- דף בית מודרני ויוקרתי בסגנון Beauty-Tech
+- Hero גדול עם תמונות, גרדיאנטים, שכבות זכוכית ואנימציות
+- Framer Motion עבור reveal animations, cards, counters ומיקרו־אינטראקציות
 - ניווט דביק עם תפריט מובייל
 - כפתור וואטסאפ צף
+- CTA דביק במובייל לקביעת תור
 - גלריית תמונות אינטראקטיבית עם Lightbox
 - קרוסלת המלצות
 - FAQ Accordion
+- יועצת יופי דיגיטלית עם quiz והמלצות שירותים
+- אזור לפני/אחרי עם כרטיסים מונפשים
+- מסע לקוחה משלב בחירת הטיפול ועד ההגעה לקליניקה
+- אזור למה לקוחות חוזרות אלינו עם counters מונפשים
 - דף טיפולים עם סינון לפי קטגוריות
-- כרטיסי שירותים עם תמונות, מחיר, משך ותיאור
+- כרטיסי שירותים עם תמונות, מחיר, משך, תיאור ו-CTA להזמנה
 - תהליך קביעת תור בשלבים
 - מצב הצלחה לאחר שליחת בקשה
 - עמוד ניהול תורים בסיסי עם כרטיסי סטטיסטיקה
@@ -40,11 +47,18 @@ src/
     globals.css
     layout.tsx
   components/
+    AnimatedCounter.tsx
+    BeautyAdvisorQuiz.tsx
+    BeforeAfterShowcase.tsx
+    ClientJourney.tsx
     FaqAccordion.tsx
     FloatingWhatsApp.tsx
     Footer.tsx
     Header.tsx
     ImageGallery.tsx
+    MobileBookingBar.tsx
+    MotionSection.tsx
+    ReturnReasons.tsx
     ServiceCard.tsx
     ServiceFilter.tsx
     TestimonialsCarousel.tsx
