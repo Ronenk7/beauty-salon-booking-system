@@ -19,6 +19,21 @@ function getStatusLabel(status?: string) {
   return "ממתין לאישור";
 }
 
+function getTodayDate() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function getPopularService(appointments: Appointment[]) {
+  const serviceCount: Record<string, number> = {};
+
+  appointments.forEach((appointment) => {
+    serviceCount[appointment.service_id] = (serviceCount[appointment.service_id] ?? 0) + 1;
+  });
+
+  const popularServiceId = Object.entries(serviceCount).sort((a, b) => b[1] - a[1])[0]?.[0];
+  return popularServiceId ? getServiceName(popularServiceId) : "אין נתונים";
+}
+
 export default async function AdminAppointmentsPage() {
   let appointments: Appointment[] = [];
   let hasError = false;
@@ -34,14 +49,34 @@ export default async function AdminAppointmentsPage() {
     hasError = Boolean(error);
   }
 
+  const today = getTodayDate();
+  const todayAppointments = appointments.filter((appointment) => appointment.appointment_date === today).length;
+  const newCustomers = new Set(appointments.map((appointment) => appointment.customer_phone)).size;
+  const dashboardCards = [
+    { title: "תורים היום", value: todayAppointments.toString(), note: "לפי תאריך היום" },
+    { title: "תורים השבוע", value: appointments.length.toString(), note: "גרסה פשוטה: כל התורים שנטענו" },
+    { title: "שירותים פופולריים", value: getPopularService(appointments), note: "לפי מספר בקשות" },
+    { title: "לקוחות חדשים", value: newCustomers.toString(), note: "לפי מספרי טלפון ייחודיים" },
+  ];
+
   return (
     <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
-      <div className="mb-10 rounded-[3rem] bg-white/75 p-8 shadow-soft md:p-12">
+      <div className="mb-8 rounded-[3rem] bg-white/75 p-8 shadow-soft md:p-12">
         <p className="text-sm font-black text-blush-700">ניהול</p>
-        <h1 className="mt-4 text-5xl font-black text-espresso">תורים שהתקבלו</h1>
+        <h1 className="mt-4 text-5xl font-black text-espresso">לוח תורים</h1>
         <p className="mt-5 max-w-3xl text-lg leading-9 text-espresso/65">
-          עמוד ניהול פשוט לגרסה הראשונה של יולי קוסמטיקס. בהמשך ניתן להוסיף התחברות, שינוי סטטוס וניהול זמינות.
+          אזור ניהול בסיסי ונקי עבור יולי קוסמטיקס. בשלב הבא ניתן להוסיף התחברות, שינוי סטטוס וניהול זמינות.
         </p>
+      </div>
+
+      <div className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {dashboardCards.map((card) => (
+          <div key={card.title} className="glass-card rounded-[2rem] p-6">
+            <p className="text-sm font-black text-blush-700">{card.title}</p>
+            <p className="mt-3 text-3xl font-black text-espresso">{card.value}</p>
+            <p className="mt-2 text-xs font-bold leading-6 text-espresso/50">{card.note}</p>
+          </div>
+        ))}
       </div>
 
       {!isSupabaseConfigured && (
@@ -57,13 +92,17 @@ export default async function AdminAppointmentsPage() {
       )}
 
       {isSupabaseConfigured && !hasError && appointments.length === 0 && (
-        <div className="rounded-[2rem] border border-white/80 bg-white/85 p-8 text-espresso/65 shadow-soft">
+        <div className="rounded-[2rem] border border-white/80 bg-white/85 p-10 text-center text-espresso/65 shadow-soft">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blush-100 text-2xl">♡</div>
           עדיין אין תורים במערכת.
         </div>
       )}
 
       {isSupabaseConfigured && !hasError && appointments.length > 0 && (
         <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white/85 shadow-soft">
+          <div className="border-b border-beige/60 px-6 py-5">
+            <h2 className="text-2xl font-black text-espresso">רשימת תורים</h2>
+          </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[760px] text-right text-sm">
               <thead className="bg-blush-100/70 text-espresso">
