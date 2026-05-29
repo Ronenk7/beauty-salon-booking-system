@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navItems = [
-  { href: "/", label: "בית" },
+  { href: "/#home", label: "בית" },
+  { href: "/#why", label: "למה אנחנו" },
   { href: "/services", label: "טיפולים" },
+  { href: "/#gallery", label: "גלריה" },
   { href: "/booking", label: "קביעת תור" },
   { href: "/admin/appointments", label: "ניהול" },
 ];
@@ -16,8 +18,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/70 bg-pearl/85 shadow-sm backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-        <Link href="/" className="group flex items-center gap-3" onClick={() => setIsOpen(false)}>
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-blush-200 to-gold-100 text-lg shadow-glow">
+        <Link href="/#home" className="group flex items-center gap-3" onClick={() => setIsOpen(false)}>
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-blush-200 to-gold-100 text-lg shadow-glow transition group-hover:rotate-12">
             ✦
           </span>
           <span>
@@ -26,7 +28,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 text-sm font-semibold text-espresso/80 md:flex">
+        <nav className="hidden items-center gap-6 text-sm font-semibold text-espresso/80 lg:flex">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} className="transition hover:text-blush-700">
               {item.label}
@@ -54,7 +56,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setIsOpen((current) => !current)}
-          className="rounded-full border border-beige bg-white/80 px-4 py-2 text-sm font-bold text-espresso md:hidden"
+          className="rounded-full border border-beige bg-white/80 px-4 py-2 text-sm font-bold text-espresso lg:hidden"
           aria-label="פתיחת תפריט"
         >
           {isOpen ? "סגירה" : "תפריט"}
@@ -62,7 +64,7 @@ export function Header() {
       </div>
 
       {isOpen && (
-        <div className="border-t border-beige/70 bg-pearl px-5 py-4 md:hidden">
+        <div className="border-t border-beige/70 bg-pearl px-5 py-4 lg:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-3 text-base font-bold text-espresso">
             {navItems.map((item) => (
               <Link
