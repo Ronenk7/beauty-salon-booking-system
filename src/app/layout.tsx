@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { MobileBookingBar } from "@/components/MobileBookingBar";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <FloatingWhatsApp />
+        <MobileBookingBar />
       </body>
     </html>
   );
