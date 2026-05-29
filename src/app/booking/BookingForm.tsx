@@ -5,19 +5,27 @@ import { FormEvent, useMemo, useState } from "react";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
 import { services } from "@/data/services";
 
-const initialForm = {
-  customer_name: "",
-  customer_phone: "",
-  service_id: services[0]?.id ?? "",
-  appointment_date: "",
-  appointment_time: "",
-  notes: "",
-};
-
 const steps = ["בחירת טיפול", "תאריך ושעה", "פרטים אישיים", "אישור"];
 
-export function BookingForm() {
-  const [form, setForm] = useState(initialForm);
+type BookingFormProps = {
+  initialServiceId?: string;
+};
+
+function getInitialForm(initialServiceId?: string) {
+  const serviceExists = services.some((service) => service.id === initialServiceId);
+
+  return {
+    customer_name: "",
+    customer_phone: "",
+    service_id: serviceExists ? (initialServiceId as string) : services[0]?.id ?? "",
+    appointment_date: "",
+    appointment_time: "",
+    notes: "",
+  };
+}
+
+export function BookingForm({ initialServiceId }: BookingFormProps) {
+  const [form, setForm] = useState(() => getInitialForm(initialServiceId));
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -28,10 +36,7 @@ export function BookingForm() {
   }, [form.service_id]);
 
   function updateField(field: keyof typeof form, value: string) {
-    setForm((currentForm) => ({
-      ...currentForm,
-      [field]: value,
-    }));
+    setForm((currentForm) => ({ ...currentForm, [field]: value }));
   }
 
   function validateStep(step: number) {
@@ -63,11 +68,9 @@ export function BookingForm() {
   }
 
   function goNext() {
-    if (!validateStep(currentStep)) {
-      return;
+    if (validateStep(currentStep)) {
+      setCurrentStep((step) => Math.min(step + 1, steps.length - 1));
     }
-
-    setCurrentStep((step) => Math.min(step + 1, steps.length - 1));
   }
 
   function goBack() {
@@ -108,7 +111,7 @@ export function BookingForm() {
       return;
     }
 
-    setForm(initialForm);
+    setForm(getInitialForm(initialServiceId));
     setCurrentStep(0);
     setSuccessMessage("בקשת התור נשלחה בהצלחה. נחזור אלייך לאישור סופי.");
     setIsSubmitting(false);
@@ -120,11 +123,7 @@ export function BookingForm() {
         <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-50 text-4xl text-green-600">✓</div>
         <h2 className="mt-6 text-4xl font-black text-espresso">הבקשה התקבלה</h2>
         <p className="mt-4 text-lg leading-8 text-espresso/65">{successMessage}</p>
-        <button
-          type="button"
-          onClick={() => setSuccessMessage("")}
-          className="mt-8 rounded-full bg-espresso px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-blush-700"
-        >
+        <button type="button" onClick={() => setSuccessMessage("")} className="mt-8 rounded-full bg-espresso px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-blush-700">
           קביעת תור נוסף
         </button>
       </div>
@@ -151,12 +150,7 @@ export function BookingForm() {
                 const isSelected = form.service_id === service.id;
 
                 return (
-                  <button
-                    key={service.id}
-                    type="button"
-                    onClick={() => updateField("service_id", service.id)}
-                    className={`overflow-hidden rounded-[2rem] text-right shadow-sm ring-2 transition hover:-translate-y-1 ${isSelected ? "ring-espresso" : "ring-transparent"}`}
-                  >
+                  <button key={service.id} type="button" onClick={() => updateField("service_id", service.id)} className={`overflow-hidden rounded-[2rem] text-right shadow-sm ring-2 transition hover:-translate-y-1 ${isSelected ? "ring-espresso" : "ring-transparent"}`}>
                     <div className="relative h-36">
                       <Image src={service.imageUrl} alt={service.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                     </div>
