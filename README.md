@@ -1,6 +1,6 @@
-# Beauty Salon Booking System
+# יולי קוסמטיקס - Beauty Salon Booking System
 
-A simple version 1 booking system for a professional beauty salon.
+אתר הזמנות מקצועי בעברית עבור קליניקת קוסמטיקה וטיפוח בשם **יולי קוסמטיקס**.
 
 ## Tech stack
 
@@ -11,12 +11,14 @@ A simple version 1 booking system for a professional beauty salon.
 
 ## Version 1 features
 
-- Home page
-- Services page
-- Booking page
-- Simple admin appointments page
-- Clean project structure
-- No payments yet
+- אתר מלא בעברית
+- RTL מלא
+- דף בית יוקרתי ומודרני
+- דף טיפולים
+- דף קביעת תור
+- עמוד ניהול תורים בסיסי
+- עיצוב רספונסיבי למובייל ולדסקטופ
+- ללא תשלומים בשלב זה
 
 ## Project structure
 
@@ -58,6 +60,12 @@ npm install
 cp .env.example .env.local
 ```
 
+On Windows PowerShell, you can use:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
 3. Add your Supabase values to `.env.local`:
 
 ```bash
@@ -87,11 +95,13 @@ http://localhost:3000
 
 ## Main pages
 
-- `/` - Home page
-- `/services` - Services list
-- `/booking` - Customer booking form
-- `/admin/appointments` - Simple admin appointments table
+- `/` - דף הבית
+- `/services` - דף טיפולים
+- `/booking` - דף קביעת תור
+- `/admin/appointments` - עמוד ניהול תורים בסיסי
 
 ## Notes
 
-This is only version 1. The admin page is intentionally simple and does not include login yet. Before using this in production, add authentication, better validation, appointment availability checks, and protected admin access.
+This is version 1. The admin page is intentionally simple and does not include login yet. Before production, add authentication, protected admin access, appointment availability checks, better validation, and real business contact details.
+
+The website can run locally even before Supabase is configured, but booking submission and admin data require Supabase environment variables and the `appointments` table.
