@@ -7,7 +7,7 @@ const navItems = [
   { href: "/#home", label: "בית" },
   { href: "/#why", label: "למה אנחנו" },
   { href: "/services", label: "טיפולים" },
-  { href: "/#gallery", label: "גלריה" },
+  { href: "/gallery", label: "גלריית Bloom" },
   { href: "/booking", label: "קביעת תור" },
   { href: "/admin/appointments", label: "ניהול" },
 ];
