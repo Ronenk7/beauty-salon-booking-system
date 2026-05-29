@@ -20,7 +20,8 @@
 - ניווט דביק עם תפריט מובייל
 - כפתור וואטסאפ צף
 - CTA דביק במובייל לקביעת תור
-- גלריית תמונות אינטראקטיבית עם Lightbox
+- גלריית Bloom אינטראקטיבית עם אפקט bouquet, סינון קטגוריות ו-Lightbox
+- עמוד גלריה ייעודי בנתיב `/gallery`
 - קרוסלת המלצות
 - FAQ Accordion
 - יועצת יופי דיגיטלית עם quiz והמלצות שירותים
@@ -40,6 +41,7 @@
 src/
   app/
     page.tsx
+    gallery/page.tsx
     services/page.tsx
     booking/page.tsx
     booking/BookingForm.tsx
@@ -50,6 +52,7 @@ src/
     AnimatedCounter.tsx
     BeautyAdvisorQuiz.tsx
     BeforeAfterShowcase.tsx
+    BloomGallery.tsx
     ClientJourney.tsx
     FaqAccordion.tsx
     FloatingWhatsApp.tsx
@@ -122,6 +125,7 @@ http://localhost:3000
 ## Main pages
 
 - `/` - דף הבית
+- `/gallery` - גלריית Bloom אינטראקטיבית
 - `/services` - דף טיפולים עם סינון קטגוריות
 - `/booking` - תהליך קביעת תור בשלבים
 - `/admin/appointments` - עמוד ניהול תורים בסיסי
